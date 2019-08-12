@@ -61,7 +61,6 @@ steps:
     projects: '**/*.csproj'
 
 - task: DotNetCoreCLI@2
-<<<<<<< HEAD
   displayName: 'Install ReportGenerator'
   inputs:
     command: custom
@@ -108,15 +107,6 @@ steps:
     codeCoverageTool: 'cobertura'
     summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
 
-=======
-  displayName: 'Run unit tests - $(buildConfiguration)'
-  inputs:
-    command: 'test'
-    arguments: '--no-build --configuration $(buildConfiguration)'
-    publishTestResults: true
-    projects: '**/*.Tests.csproj'
-
->>>>>>> master
 - task: DotNetCoreCLI@2
   displayName: 'Publish the project - $(buildConfiguration)'
   inputs:
@@ -133,6 +123,9 @@ steps:
 - template: templates/build.yml
   parameters:
     buildConfiguration: 'Release'
+
+- task: WhiteSource Bolt@19
+  displayName: 'Run WhiteSource Bolt'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
